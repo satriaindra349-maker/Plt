@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tolong maafin aku yah? 🥺</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffe6e9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 85%;
+      z-index: 10;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Overlay Pembuka */
+    #startOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 230, 233, 0.98);
+      z-index: 999999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #startBtn {
+      background-color: #ff4d6d;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .bloom-anim {
+      animation: flowerBloom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes flowerBloom {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-10deg);
+      }
+      70% {
+        transform: scale(1.05) rotate(2deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      width: 45%;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn:hover {
+      background-color: #ff758f;
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+      width: 45%;
+      position: relative;
+      z-index: 99999;
+      transition: transform 0.15s ease, left 0.15s ease, top 0.15s ease;
+    }
+
+    .see-btn {
+      display: none;
+      background-color: #7209b7;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+      text-decoration: none;
+      padding: 12px 0;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .flower {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Layar Pembuka -->
+  <div id="startOverlay">
+    <button id="startBtn" onclick="mulaiWeb()">Buka Pesan 💌</button>
+  </div>
+
+  <!-- Audio TikTok Slide 1 -->
+  <audio id="sadMusic" loop preload="auto"></audio>
+
+  <!-- Audio Whoosh saat Tombol Kabur -->
+  <audio id="whooshSound" src="https://www.myinstants.com/media/sounds/whoosh-wind.mp3" preload="auto"></audio>
+
+  <!-- Audio Happy Happy Happy Song saat Dimaafkan -->
+  <audio id="bgMusic" src="https://www.myinstants.com/media/sounds/happy-happy-happy-song.mp3" preload="auto"></audio>
+
+  <div class="container" id="mainCard">
+    <img id="gif" src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNzltN2E5ajU3MXBwbjJ4cnN3dXBjc21nMjB2N3Z0b3h3b3JkN2k4dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wSxNZ8sksBiV2NVOfq/giphy.gif" alt="Crying meme">
+    <h1 id="title">sayangg aku minta maaf yah... 🥺</h1>
+    <p id="message">ututuu sayangg, maaf yaa? Aku minta maaf karna cuma liatin kamu doang pas lagi gebuk gebukan, maaf udah bikin kamu kesel, aku menyesal banget huhu(⁠╥⁠﹏⁠╥⁠), udah dong ngambeknya, kan aku kangen :(</p>
+    
+    <div class="btn-container" id="btnGroup">
+      <button id="noBtn" onmouseover="kabur()" onclick="kabur(event)" ontouchstart="kabur(event)">Gak Mau</button>
+      <button id="yesBtn" onclick="maafin()">Iya, Maafin</button>
+    </div>
+
+    <!-- Tombol Pembuka Video TikTok -->
+    <a id="seeThisBtn" class="see-btn" href="https://vt.tiktok.com/ZSq2NQYJh/" target="_blank">liat deh ini 🎬</a>
+  </div>
+
+  <script>
+    const sadMusic = document.getElementById('sadMusic');
+
+    fetch("http://googleusercontent.com/file_content/1")
+      .then(res => res.blob())
+      .then(blob => {
+        sadMusic.src = URL.createObjectURL(blob);
+      })
+      .catch(() => {
+        sadMusic.src = "https://www.myinstants.com/media/sounds/sad-hamster.mp3";
+      });
+
+    function mulaiWeb() {
+      document.getElementById('startOverlay').style.display = 'none';
+      document.getElementById('mainCard').classList.add('bloom-anim');
+
+      sadMusic.currentTime = 0;
+      sadMusic.play().catch(err => console.log("Play error:", err));
+
+      buatBungaAwal();
+    }
+
+    function buatBungaAwal() {
+      const bungaList = ['🌸', '🌺', '🌷'];
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const flower = document.createElement('div');
+          flower.classList.add('flower');
+          flower.innerText = bungaList[Math.floor(Math.random() * bungaList.length)];
+          flower.style.left = Math.random() * 100 + 'vw';
+          flower.style.fontSize = (Math.random() * 15 + 15) + 'px';
+          flower.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          document.body.appendChild(flower);
+
+          setTimeout(() => flower.remove(), 4000);
+        }, i * 80);
+      }
+    }
+
+    function kabur(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      const whoosh = document.getElementById('whooshSound');
+      whoosh.currentTime = 0;
+      whoosh.play().catch(e => console.log("Whoosh error:", e));
+
+      const noBtn = document.getElementById('noBtn');
+      
+      // Jangkauan pergerakan diperkecil (maksimal hanya bergeser ±60px ke kiri/kanan dan ±40px ke atas/bawah)
+      const randomX = (Math.random() * 120) - 60;
+      const randomY = (Math.random() * 80) - 40;
+      
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function maafin() {
+      sadMusic.pause();
+      sadMusic.currentTime = 0;
+
+      const music = document.getElementById('bgMusic');
+      music.play().catch(err => console.log("Audio play error:", err));
+
+      document.getElementById('gif').src = "https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyd29mNjZpczhkamswamhjdnA3dDdsMDF3NGh6aHF3azV5bGZsdW5qcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TjSPQgowhhJdHgvnwA/giphy.gif";
+      document.getElementById('title').innerText = "HOREEEEE! makasihh saayanggg! 🥰";
+      document.getElementById('message').innerText = "janji deh gak bakal bikin kesel lagi eheheh, sekarang ayo baikan dan aku cinta kamu:3";
+      
+      document.getElementById('btnGroup').style.display = 'none';
+      document.getElementById('seeThisBtn').style.display = 'inline-block';
+
+      buatBungaGugur();
+    }
+
+    function buatBungaGugur() {
+      const bungaList = ['🌸', '🌹', '🌺', '🌷', '✨'];
+      
+      for (let i = 0; i < 35; i++) {
+        setTimeout(() => {
+          const flower = document.createElement('div');
+          flower.classList.add('flower');
+          flower.innerText = bungaList[Math.floor(Math.random() * bungaList.length)];
+          flower.style.left = Math.random() * 100 + 'vw';
+          flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          flower.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+          
+          document.body.appendChild(flower);
+
+          setTimeout(() => {
+            flower.remove();
+          }, 5000);
+        }, i * 120);
+      }
+    }
+  </script>
+
+</body>
+</html>
